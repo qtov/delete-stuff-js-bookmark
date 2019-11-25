@@ -1,21 +1,26 @@
 javascript: (function() {
-    var style_text = '.highlighted_to_remove{background:red !important}';
-    var style = document.createElement('style');
-    style.type = 'text/css';
-    if (style.styleSheet) {
-        style.styleSheet.cssText = style_text;
-    } else {
-        style.appendChild(document.createTextNode(style_text));
-    }
+    if (!window.delete_stuff_style_created) {
+        const style_text = '.highlighted_to_remove{background:red !important}';
+        const style = document.createElement('style');
+        style.type = 'text/css';
+        if (style.styleSheet) {
+            style.styleSheet.cssText = style_text;
+        } else {
+            style.appendChild(document.createTextNode(style_text));
+        }
 
-    document.getElementsByTagName('head')[0].appendChild(style);
+        document.getElementsByTagName('head')[0].appendChild(style);
+        window.delete_stuff_style_created = true;
+    }
 
     var e = function(e) {
         if (e.keyCode == 27) {
             i();
         }
     };
+
     document.addEventListener("keydown", e);
+
     var t = function(e) {
         e.stopPropagation();
         this.classList.add("highlighted_to_remove");
